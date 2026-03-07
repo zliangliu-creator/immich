@@ -1,7 +1,6 @@
 <script lang="ts">
   import { shortcut } from '$lib/actions/shortcut';
   import ImageThumbnail from '$lib/components/assets/thumbnail/image-thumbnail.svelte';
-  import { assetViewerManager } from '$lib/managers/asset-viewer-manager.svelte';
   import { isFaceEditMode } from '$lib/stores/face-edit.svelte';
   import { getPeopleThumbnailUrl } from '$lib/utils';
   import { getNaturalSize, scaleToFit } from '$lib/utils/container-utils';
@@ -18,9 +17,10 @@
     containerWidth: number;
     containerHeight: number;
     assetId: string;
+    onTagFace?: () => Promise<void>;
   }
 
-  let { htmlElement, containerWidth, containerHeight, assetId }: Props = $props();
+  let { htmlElement, containerWidth, containerHeight, assetId, onTagFace }: Props = $props();
 
   let canvasEl: HTMLCanvasElement | undefined = $state();
   let canvas: Canvas | undefined = $state();
@@ -287,7 +287,7 @@
         },
       });
 
-      await assetViewerManager.setAssetId(assetId);
+      await onTagFace?.();
     } catch (error) {
       handleError(error, 'Error tagging face');
     } finally {
