@@ -42,6 +42,8 @@ class AssetViewerManager extends BaseEventManager<Events> {
   isShowActivityPanel = $state(false);
   isPlayingMotionPhoto = $state(false);
   isShowEditor = $state(false);
+  isEditFacesPanelOpen = $state(false);
+  showingHiddenPeople = $state(false);
 
   #viewingAssetStoreState = $state<AssetResponseDto>();
   #viewState = $state<boolean>(false);
